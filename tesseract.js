@@ -61,7 +61,7 @@ module.exports = function(RED)
 				params.tessedit_pageseg_mode = node.tessedit_pageseg_mode;
 			await worker.setParameters(params)
 			// Perform OCR
-			const result = await worker.recognize(msg.payload, {}, { hocr: true })
+			const result = await worker.recognize(msg.payload, {}, { hocr: false })
 			node.message
 			{
 				msg.payload = result.data.text;
