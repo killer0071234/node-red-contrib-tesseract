@@ -52,24 +52,14 @@ module.exports = function(RED)
 			const worker = await Tesseract.createWorker(node.language);
 			// Perform OCR
 			const result = await worker.recognize(msg.payload)
-			console.log(result);
+			console.log(result.data);
 			//t.recognize(msg.payload, {lang: node.language}).then(function(result)
 			{
-				msg.payload = result.text;
+				msg.payload = result.data.text;
 				msg.tesseract = 
 				{
-					text: result.text,
-					confidence: result.confidence,
-					lines: result.lines.map(l => l = 
-					{
-						text: l.text,
-						confidence: l.confidence,
-						words: l.words.map(w => w = 
-						{
-							text: w.text,
-							confidence: w.confidence
-						})
-					})
+					text: result.data.text,
+					confidence: result.data.confidence,
 				};
 				await worker.terminate();
 				node.send(msg);
