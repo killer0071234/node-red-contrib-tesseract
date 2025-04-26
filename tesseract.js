@@ -1,4 +1,4 @@
-var TesseractWorker = require('tesseract.js');
+var Tesseract = require('tesseract.js');
 var request = require('native-request');
 var fs = require('fs');
 var path = require("path");
@@ -10,7 +10,7 @@ module.exports = function(RED)
 		RED.nodes.createNode(this, config);
 		this.language = config.language;
 		var node = this;
-		node.on('input', function(msg)
+		node.on('input', async function(msg)
 		{
 			// Download URL
 			if (/^http(s?):\/\//.test(msg.payload))
@@ -23,7 +23,7 @@ module.exports = function(RED)
 						node.error("Encountered error while downloading image file. " + err.message);
 					}
 					msg.payload = body;
-					Recognize(msg);
+					await Recognize(msg);
 				});
 			}
 			// Open file on local file system
@@ -31,7 +31,7 @@ module.exports = function(RED)
 			{
 				if (fs.existsSync(msg.payload))
 				{
-					Recognize(msg);
+					await Recognize(msg);
 				}
 				else
 				{
@@ -41,17 +41,18 @@ module.exports = function(RED)
 			// Buffer
 			else
 			{
-				Recognize(msg);
+				await Recognize(msg);
 			}
 		});
-		function Recognize(msg)
+		async function Recognize(msg)
 		{
 			// Update status - Starting
 			node.status({fill: "blue", shape: "dot", text: "performing ocr"});
 			// Initiate Tesseract.js
-			var t = new TesseractWorker();
+			const worker = await Tesseract.createWorker(node.language);
 			// Perform OCR
-			t.recognize(msg.payload, {lang: node.language}).then(function(result)
+			const result = await worker.recognize(msg.payload)
+			//t.recognize(msg.payload, {lang: node.language}).then(function(result)
 			{
 				msg.payload = result.text;
 				msg.tesseract = 
@@ -69,11 +70,11 @@ module.exports = function(RED)
 						})
 					})
 				};
-				t.terminate();
+				await worker.terminate();
 				node.send(msg);
 				// Update status - Done
 				node.status({});
-			});
+			};
 		}
 	}
 	RED.nodes.registerType("tesseract", TesseractNode);
