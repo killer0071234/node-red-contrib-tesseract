@@ -1,12 +1,12 @@
 {
   "name": "node-red-contrib-tesseract",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Tesseract.js is a pure Javascript port of the popular Tesseract OCR engine and performs offline text recognition.",
   "main": "tesseract.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Sjoerd van der Hoorn",
+  "author": "Sjoerd van der Hoorn (Test by killer0071234)",
   "license": "ISC",
   "keywords": [
     "node-red",
@@ -14,7 +14,7 @@
 	"tesseract",
 	"text recognition"
   ],
-  "homepage": "https://github.com/sjoerdvanderhoorn/node-red-contrib-tesseract",
+  "homepage": "https://github.com/killer0071234/node-red-contrib-tesseract",
   "node-red": {
     "nodes": {
       "tesseract": "tesseract.js"
@@ -23,10 +23,10 @@
   "repository" :
   {
     "type" : "git",
-	"url" : "https://github.com/sjoerdvanderhoorn/node-red-contrib-tesseract.git"
+	"url" : "https://github.com/killer0071234/node-red-contrib-tesseract.git"
   },
   "dependencies": {
-    "request": "^2.87.0",
-    "tesseract.js": "^1.0.10"
+    "request": "^2.88.2",
+    "tesseract.js": "^6.0.1"
   }
 }
