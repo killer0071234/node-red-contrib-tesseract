@@ -58,7 +58,7 @@ module.exports = function(RED)
 				{
 					text: result.data.text,
 					confidence: result.data.confidence,
-					version: request.data.version,
+					version: result.data.version,
 				};
 				await worker.terminate();
 				node.send(msg);
