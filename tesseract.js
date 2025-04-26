@@ -10,6 +10,7 @@ module.exports = function(RED)
 		RED.nodes.createNode(this, config);
 		this.language = config.language;
 		this.tessedit_char_whitelist = config.tessedit_char_whitelist;
+		this.tessedit_pageseg_mode = config.tessedit_pageseg_mode;
 		var node = this;
 		node.on('input', async function(msg)
 		{
@@ -52,9 +53,13 @@ module.exports = function(RED)
 			// Initiate Tesseract.js
 			const worker = await Tesseract.createWorker(node.language);
 			// Apply config
+			var params = {}
 			if (node.tessedit_char_whitelist != "") {
-				await worker.setParameters({tessedit_char_whitelist: node.tessedit_char_whitelist})
+				params.tessedit_char_whitelist = node.tessedit_char_whitelist;
 			}
+			if (node.tessedit_pageseg_mode != "")
+				params.tessedit_pageseg_mode = node.tessedit_pageseg_mode;
+			await worker.setParameters(params)
 			// Perform OCR
 			const result = await worker.recognize(msg.payload, {}, { hocr: true })
 			node.message
