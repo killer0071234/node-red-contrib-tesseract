@@ -26,7 +26,7 @@
 	"url" : "https://github.com/killer0071234/node-red-contrib-tesseract.git"
   },
   "dependencies": {
-    "request": "^2.88.2",
+    "native-request": "^1.1.2",
     "tesseract.js": "^6.0.1"
   }
 }
