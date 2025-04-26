@@ -1,5 +1,5 @@
 var Tesseract = require('tesseract.js');
-var request = require('request');
+var request = require('native-request');
 var fs = require('fs');
 var path = require("path");
 
