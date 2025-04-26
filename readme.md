@@ -23,26 +23,6 @@ This [Node-RED implementation of Tesseract.js](https://github.com/sjoerdvanderho
 {
 	text: "Text from image\nSecond line",
 	confidence: 87,
-	lines: 
-	[
-		{
-			text: "Text from image",
-			confidence: 93,
-			words:
-			[
-				{
-					text: "Text",
-					confidence: 97
-				},
-				{
-					...
-				}
-			]
-		},
-		{
-			...
-		}
-	]
 }
 ```
 
