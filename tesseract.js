@@ -1,4 +1,4 @@
-var Tesseract = require('tesseract.js');
+var TesseractWorker = require('tesseract.js');
 var request = require('native-request');
 var fs = require('fs');
 var path = require("path");
@@ -49,11 +49,7 @@ module.exports = function(RED)
 			// Update status - Starting
 			node.status({fill: "blue", shape: "dot", text: "performing ocr"});
 			// Initiate Tesseract.js
-			var t = new Tesseract.create(
-			{
-				workerPath: path.join(__dirname, "/tesseract.js-overload/worker.js"),
-				langPath: "https://github.com/naptha/tessdata/raw/gh-pages/3.02/"
-			});
+			var t = new TesseractWorker();
 			// Perform OCR
 			t.recognize(msg.payload, {lang: node.language}).then(function(result)
 			{
