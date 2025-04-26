@@ -16,7 +16,7 @@ module.exports = function(RED)
 			if (/^http(s?):\/\//.test(msg.payload))
 			{
 				node.status({fill: "blue", shape: "dot", text: "downloading image"});
-				request({url:msg.payload, encoding: null}, function(err, res, body)
+				request({url:msg.payload, encoding: null}, async function(err, res, body)
 				{
 					if (err)
 					{
